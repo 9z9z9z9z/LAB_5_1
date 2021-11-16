@@ -1,14 +1,13 @@
 #include <iostream>
 #include <ctime>
 #include <string>
+#include <windows.h>
 using namespace std;
 
 void input_number(int *K) {
-	setlocale(0, "rus");
 	int number;
 	while (true)
 	{
-		cout << "Input length of strings" << endl;
 		cin >> number;
 		if (cin.good())
 		{
@@ -16,15 +15,16 @@ void input_number(int *K) {
 			break;
 		}
 		cin.clear();
-		cout << "Invalid input data" << endl;
+		cout << "Invalid input data, try something else" << endl;
 		cin.ignore(10, '\n');
 	}
+	*K = number;
 }
 
 void screen(string words[], int count[], int i)
 {
 	int lenghts;
-	cout << '\n';
+	cout << "\nInput length of strings" << endl;
 	input_number(&lenghts);
 	int prover = 1;
 	for (int j = 1; j < i; j++)
@@ -45,7 +45,7 @@ int main()
 	string stroki;
 	string* words = new string[1000];
 	int i = 1;
-	cout << "Input yours strings";
+	cout << "Input some strings";
 	while (vvod != "stop")
 	{
 		cout << '\n';
@@ -74,12 +74,13 @@ int main()
 			count[j] = words[j].size() - 1;
 		}
 	}
+	system("cls");
 	cout << "Strings";
 	cout << '\n';
 	for (int g = 1; g < i; g++)
 	{
-		cout << words[g];
 		cout << '\n';
+		cout << words[g];
 	}
 	cout << '\n';
 	cout << "Vallue char in strings ";
@@ -87,30 +88,37 @@ int main()
 	for (int g = 1; g < i; g++)
 	{
 		cout << count[g] << '\t';
-
 	}
 	screen(words, count, i);
 	cout << '\n';
 	cout << "Input size of outputting strings";
 	cout << '\n';
 	int upper;
-	cin >> upper;
+	input_number(&upper); //Длина выводимой строки
 	cout << '\n';
 	for (int o = 1; o < i; o++)
 	{
 		if (words[o].size() < upper)
 		{
-			cout << '\n';
 			cout << words[o];
+			cout << '\n';
 		}
 		else {
-			for (int p = 0; p < upper + 1; p++)
-			{
-				cout << words[o][p];
+			if (o == 1) {
+				for (int p = 0; p < upper; p++)
+				{
+					cout << words[o][p];
+				}
+				cout << '\n';
 			}
-			cout << '\n';
-
+			else{
+				for (int p = 1; p < upper + 1; p++)
+				{
+					cout << words[o][p];
+				}
+				cout << '\n';
+			}
 		}
-
 	}
+	return 666;
 }
